@@ -1,2 +1,2 @@
 # Telegram taxi bot 
-Simple telegram bor for order taxi.
+Simple telegram bot for order taxi.
