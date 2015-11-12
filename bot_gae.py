@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-
 import sys
 import os
-sys.path.append(os.path.join(os.path.abspath('.'), 'venv/lib/python2.7/site-packages/'))
 
+sys.path.append(os.path.join(os.path.abspath('.'), 'venv/lib/python2.7/site-packages/'))
 
 from flask import Flask, request
 import telegram
@@ -26,7 +25,7 @@ def webhook_handler():
         text = update.message.text.encode('utf-8')
 
         # repeat the same message back (echo)
-        bot.sendMessage(chat_id=chat_id, text=text)
+        bot.sendMessage(chat_id=chat_id, text="Hi %s! You just type %s" % (update.message.from_user.first_name, text))
 
     return 'ok'
 
@@ -43,13 +42,3 @@ def set_webhook():
 @app.route('/')
 def index():
     return '.'
-
-# from flask import Flask
-# app = Flask(__name__)
-#
-# @app.route("/")
-# def hello():
-#     return "Hello World!"
-#
-# if __name__ == "__main__":
-#     app.run()
