@@ -6,7 +6,6 @@ sys.path.append(os.path.join(os.path.abspath('.'), 'venv/lib/python2.7/site-pack
 
 from flask import Flask, request
 import telegram
-
 app = Flask(__name__)
 
 global bot
@@ -23,9 +22,9 @@ def webhook_handler():
 
         # Telegram understands UTF-8, so encode text for unicode compatibility
         text = update.message.text.encode('utf-8')
-
         # repeat the same message back (echo)
-        bot.sendMessage(chat_id=chat_id, text="Hi %s! You just type %s" % (update.message.from_user.first_name, text))
+        text = text + " hello Suren!"
+        bot.sendMessage(chat_id=chat_id, text=text)
 
     return 'ok'
 
