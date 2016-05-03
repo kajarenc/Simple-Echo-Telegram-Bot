@@ -6,14 +6,16 @@ sys.path.append(os.path.join(os.path.abspath('.'), 'venv/lib/python2.7/site-pack
 
 from flask import Flask, request
 import telegram
-app = Flask(__name__)
 
+app = Flask(__name__)
+from bot_logic import handler
 
 bot = telegram.Bot(token='144611601:AAHH1laGr83dvBLzrEb-f1t0mdNRDRgtU8A')
 
 
 def get_random_joke():
     return "random joke"
+
 
 @app.route('/144611601:AAHH1laGr83dvBLzrEb-f1t0mdNRDRgtU8A', methods=['POST'])
 def webhook_handler():
@@ -26,26 +28,27 @@ def webhook_handler():
         # Telegram understands UTF-8, so encode text for unicode compatibility
         text = update.message.text.encode('utf-8')
         # repeat the same message back (echo)
-        response_text = ''
-        if text=="Monday":
-            response_text = "Monday shedule"
-        elif text=="Tuesday":
-            response_text = "Tuesday shedule"
-        elif text == "Wednesday":
-            response_text = "Wednesday shedule"
-        elif text == "Thursday":
-            response_text = "Thursday shedule"
-        elif text == "Friday":
-            response_text = "Friday shedule"
-        elif text == "LOL":
-            response_text = get_random_joke()
 
-        custom_keyboard = [["Monday", "Tuesday","Wednesday"],
-                           ["Thursday", "Friday","LOL"]]
-        reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
-        bot.sendMessage(chat_id=chat_id, text=response_text, reply_markup=reply_markup)
-        # bot.sendMessage(chat_id=chat_id, text=text)
-
+        # response_text = ''
+        # if text=="Monday":
+        #     response_text = "Monday shedule"
+        # elif text=="Tuesday":
+        #     response_text = "Tuesday shedule"
+        # elif text == "Wednesday":
+        #     response_text = "Wednesday shedule"
+        # elif text == "Thursday":
+        #     response_text = "Thursday shedule"
+        # elif text == "Friday":
+        #     response_text = "Friday shedule"
+        # elif text == "LOL":
+        #     response_text = get_random_joke()
+        #
+        # custom_keyboard = [["Monday", "Tuesday","Wednesday"],
+        #                    ["Thursday", "Friday","LOL"]]
+        # reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
+        # bot.sendMessage(chat_id=chat_id, text=response_text, reply_markup=reply_markup)
+        # # bot.sendMessage(chat_id=chat_id, text=text)
+        handler(bot, update)
     return 'ok'
 
 
